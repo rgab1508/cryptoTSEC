@@ -16,6 +16,7 @@ import {
 
 import BlockChain from './BlockChain';
 import Create from './Create';
+import New from './New';
 import firebase from './firebase';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +58,9 @@ export default function Body() {
         <Grid item xs={10}>
             <Router>
                 <Switch>
-                    <Route path="/" component={BlockChain} />
+                    <Route path="/new" component={New} />
                     <Route path="/create" component={Create} />
+                    <Route path="/" component={BlockChain} />
                 </Switch>
             </Router>
         </Grid>

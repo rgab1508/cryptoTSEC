@@ -84,7 +84,7 @@ export default function Header(props) {
             <Button variant="contained" href="/new" className={classes.login}>New</Button>
             <Avatar alt="User Avatar" src={"https://avatars.dicebear.com/api/male/"+Math.random()+".png"} className={classes.logo} onClick={showMenu} />
             <Menu id="menu-appbar" onClose={closeMenu} anchorEl={anchorEl} getContentAnchorEl={null} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} transformOrigin={{ vertical: "top", horizontal: "center" }} open={Boolean(anchorEl)} className={classes.menubar} >
-                <MenuItem href="/create">Create Wallet</MenuItem>
+                <MenuItem onClick={() => window.location.href="/create"}>Create Wallet</MenuItem>
                 <MenuItem>Log out</MenuItem>
             </Menu>
         </Toolbar>
