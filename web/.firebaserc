@@ -1,0 +1,21 @@
+{
+  "projects": {
+    "default": "codrcrew"
+  },
+  "targets": {
+    "theabbie": {
+      "hosting": {
+        "cryptotsec": [
+          "cryptotsec"
+        ]
+      }
+    },
+    "codrcrew": {
+      "hosting": {
+        "cryptotsec": [
+          "cryptotsec"
+        ]
+      }
+    }
+  }
+}
