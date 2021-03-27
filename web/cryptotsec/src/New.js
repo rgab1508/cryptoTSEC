@@ -19,6 +19,7 @@ import elliptic from 'elliptic';
 
 import firebase from './firebase';
 import SHA256 from './SHA256';
+import createTransaction from './createTransaction';
 
 const useStyles = makeStyles((theme) => ({
     body: {
@@ -112,27 +113,14 @@ export default function New() {
     const [hash,sethash] = useState("");
     const [sign,setsign] = useState("");
 
-    function broadcast(sign) {
-        firebase.database().ref("crypto/pool").push({
-            sender_address: send,
-            reciever_address: rec,
-            amount: amount,
-            signature: sign
-        });
-    }
-
     function show() {
-        var hash = SHA256(send+rec+amount);
-        var EC = elliptic.ec;
-        var ec = new EC('secp256k1');
-        var key = ec.keyFromPrivate(privatekey);
-        setsign(key.sign(hash,"base64").toDER("hex"));
+        var { sign, hash } = createTransaction(send,rec,amount,privatekey);
+        setsign(sign);
+        sethash(hash);
         setstep(0);
         setTimeout(() => setstep(1),3000);
         setTimeout(() => setstep(2),6000);
         setTimeout(() => setstep(3),9000);
-        sethash(hash);
-        broadcast(key.sign(hash,"base64").toDER("hex"));
     }
 
     return (

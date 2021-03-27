@@ -12,6 +12,8 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+import BlockChain from './BlockChain';
+
 const useStyles = makeStyles((theme) => ({
     header: {
         background: 'rgb(30,30,30)'
@@ -64,6 +66,17 @@ export default function Header(props) {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [balance,setbalance] = useState(0);
+
+  useEffect(() => {
+    if (localStorage.getItem("blockchain")) {
+        var localblocks = JSON.parse(localStorage.getItem("blockchain"));
+        var bc = new BlockChain();
+        bc.import(localblocks);
+        var bal = bc.getBalance(localStorage.getItem("public") || "");
+        setbalance(bal);
+    }
+  },[])
 
   function showMenu(e) {
       setAnchorEl(e.currentTarget);
@@ -81,6 +94,7 @@ export default function Header(props) {
             </Link>
             <Typography variant="h5" gutterBottom className={classes.title}>CryptoTSEC</Typography>
             <div style={{flexGrow: 1}}></div>
+            <Typography variant="h5" gutterBottom className={classes.title}>{balance} Coins</Typography>
             <Button variant="contained" href="/new" className={classes.login}>New</Button>
             <Avatar alt="User Avatar" src={"https://avatars.dicebear.com/api/male/"+Math.random()+".png"} className={classes.logo} onClick={showMenu} />
             <Menu id="menu-appbar" onClose={closeMenu} anchorEl={anchorEl} getContentAnchorEl={null} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} transformOrigin={{ vertical: "top", horizontal: "center" }} open={Boolean(anchorEl)} className={classes.menubar} >
