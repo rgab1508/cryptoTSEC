@@ -60,4 +60,15 @@ export default class BlockChain {
         block.mineBlock(this.difficulty);
         this.blocks.push(block);
     }
+
+    getBalance(address) {
+        var balance = 0;
+        for (var i = 1; i < this.blocks.length; i++) {
+            for (var transaction of this.blocks[i].data) {
+                if (transaction.sender_address == address) balance -= transaction.amount;
+                if (transaction.reciever_address == address) balance += transaction.amount;
+            }
+        }
+        return balance;
+    }
 }
