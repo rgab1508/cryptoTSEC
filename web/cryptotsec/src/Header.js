@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     header: {
-        background: 'rgb(50,50,50)'
+        background: 'rgb(30,30,30)'
     },
     logo: {
         height: 40,

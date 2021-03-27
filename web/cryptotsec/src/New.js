@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
         color: "white"
     },
     process: {
-        backgroundColor: "rgb(50,50,50)",
+        backgroundColor: "rgb(30,30,30)",
         color: "white",
         "& .MuiTypography-root": {
             color: "white"
@@ -112,17 +112,27 @@ export default function New() {
     const [hash,sethash] = useState("");
     const [sign,setsign] = useState("");
 
+    function broadcast(sign) {
+        firebase.database().ref("crypto/pool").push({
+            sender_address: send,
+            reciever_address: rec,
+            amount: amount,
+            signature: sign
+        });
+    }
+
     function show() {
-        SHA256(send+rec+amount).then(hash => {
-            var EC = elliptic.ec;
-            var ec = new EC('secp256k1');
-            var key = ec.keyFromPrivate(privatekey);
-            setsign(key.sign(hash,"base64").toDER("hex"));
-            setstep(0);
-            setTimeout(() => setstep(1),3000);
-            setTimeout(() => setstep(2),6000);
-            sethash(hash);
-        })
+        var hash = SHA256(send+rec+amount);
+        var EC = elliptic.ec;
+        var ec = new EC('secp256k1');
+        var key = ec.keyFromPrivate(privatekey);
+        setsign(key.sign(hash,"base64").toDER("hex"));
+        setstep(0);
+        setTimeout(() => setstep(1),3000);
+        setTimeout(() => setstep(2),6000);
+        setTimeout(() => setstep(3),9000);
+        sethash(hash);
+        broadcast(key.sign(hash,"base64").toDER("hex"));
     }
 
     return (
@@ -171,6 +181,12 @@ export default function New() {
                                 This step involves signing the hash of the transaction details. This step is very important as it ensures the transaction was created by user trying to send money.
                                 The signature will be as follows.
                                 <InputBase value={sign} className={classes.question} />
+                            </StepContent>
+                        </Step>
+                        <Step key="four" onClick={() => setstep(3)}>
+                            <StepLabel classes={{ root: classes.process }}>Broadcast to other nodes:</StepLabel>
+                            <StepContent>
+                                This step involves broadcasting our transaction to other nodes so that they can update their transaction pool.
                             </StepContent>
                         </Step>
                     </Stepper>
