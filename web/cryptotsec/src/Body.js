@@ -14,7 +14,7 @@ import {
     Route
 } from "react-router-dom";
 
-import BlockChain from './BlockChain';
+import Mine from './Mine';
 import Create from './Create';
 import New from './New';
 import firebase from './firebase';
@@ -60,7 +60,7 @@ export default function Body() {
                 <Switch>
                     <Route path="/new" component={New} />
                     <Route path="/create" component={Create} />
-                    <Route path="/" component={BlockChain} />
+                    <Route path="/" component={Mine} />
                 </Switch>
             </Router>
         </Grid>
