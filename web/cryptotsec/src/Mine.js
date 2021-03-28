@@ -127,9 +127,13 @@ export default function Mine() {
           var transactions = Object.values(snapshot.val() || []);
           var localblocks = JSON.parse(localStorage.getItem("blockchain"));
           var bc = new BlockChain();
+          var localblocks = JSON.parse(localStorage.getItem("blockchain"));
+          bc.import(localblocks);
           transactions = transactions.filter(t => {
               var validator = new Transaction(t.sender_address,t.reciever_address,t.amount,t.signature);
+              console.log(bc.getBalance(t.sender_address),t.amount);
               if (bc.getBalance(t.sender_address) < t.amount) return false;
+              console.log("Invalid");
               return validator.isValid();
           });
           setpool(transactions);
