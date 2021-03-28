@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from 'react-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Header from './Header';
