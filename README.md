@@ -2,6 +2,8 @@
 
 > An open-source Cryptocurrency implementation
 
+Built for TSEC-Hacks 2021 hackathon
+
 [cryptotsec.web.app](https://cryptotsec.web.app)
 
 ## Overview
