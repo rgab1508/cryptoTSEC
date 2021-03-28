@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from 'react-dom';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -18,11 +13,6 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
 
 import createTransaction from './createTransaction';
 
@@ -135,8 +125,11 @@ export default function Mine() {
 
       firebase.database().ref("crypto/pool").on("value",snapshot => {
           var transactions = Object.values(snapshot.val() || []);
+          var localblocks = JSON.parse(localStorage.getItem("blockchain"));
+          var bc = new BlockChain();
           transactions = transactions.filter(t => {
               var validator = new Transaction(t.sender_address,t.reciever_address,t.amount,t.signature);
+              if (bc.getBalance(t.sender_address) < t.amount) return false;
               return validator.isValid();
           });
           setpool(transactions);

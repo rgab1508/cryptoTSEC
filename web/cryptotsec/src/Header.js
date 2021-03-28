@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from 'react-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
-import InputBase from '@material-ui/core/InputBase';
-import Paper from '@material-ui/core/Paper';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Link from '@material-ui/core/Link';
@@ -32,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             display: 'none'
         }
+    },
+    balanace: {
+        color: 'white',
+        margin: 15
     },
     search: {
         color: 'white',
@@ -94,7 +95,7 @@ export default function Header(props) {
             </Link>
             <Typography variant="h5" gutterBottom className={classes.title}>CryptoTSEC</Typography>
             <div style={{flexGrow: 1}}></div>
-            <Typography variant="h5" gutterBottom className={classes.title}>{balance} Coins</Typography>
+            <Typography variant="h5" gutterBottom className={classes.balance}>{balance} Coins</Typography>
             <Button variant="contained" href="/new" className={classes.login}>New</Button>
             <Avatar alt="User Avatar" src={"https://avatars.dicebear.com/api/male/"+Math.random()+".png"} className={classes.logo} onClick={showMenu} />
             <Menu id="menu-appbar" onClose={closeMenu} anchorEl={anchorEl} getContentAnchorEl={null} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} transformOrigin={{ vertical: "top", horizontal: "center" }} open={Boolean(anchorEl)} className={classes.menubar} >

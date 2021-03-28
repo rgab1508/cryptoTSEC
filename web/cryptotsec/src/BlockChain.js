@@ -16,7 +16,7 @@ export default class BlockChain {
     }
 
     genesisBlock() {
-        return new Block(0,0,0,0,0,0,0);
+        return new Block(0,0,[{sender_address: 0, reciever_address: '04bf0a66adfdf2e5aa1795b7b1b30c6fe26f41e95f49eb35a24fbf351e7d63c4427098b4e8bdae6fdc70758d44b26ebb0eca86cdf2a837124626c096b9e5fba13c', amount: 100, signature: ''}],0,0,0,0);
     }
 
     isValid() {
@@ -63,7 +63,7 @@ export default class BlockChain {
 
     getBalance(address) {
         var balance = 0;
-        for (var i = 1; i < this.blocks.length; i++) {
+        for (var i = 0; i < this.blocks.length; i++) {
             for (var transaction of this.blocks[i].data) {
                 if (transaction.sender_address == address) balance -= transaction.amount;
                 if (transaction.reciever_address == address) balance += transaction.amount;
