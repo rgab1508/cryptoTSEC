@@ -34,7 +34,7 @@ npm run start
 
 ## Team
 
-* [Aditya Unnikrishnan](https://github.com/CharieBlastX7)
+* [Aditya Unnikrishnan](https://adiunni.tech)
 * [Gabriel Rajendran](https://github.com/rgab1508)
 * [Abhishek Chaudhary](https://theabbie.github.io/)
 * [Gregory](https://github.com/gregbg218)
